@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>json.html</title>
+	
+  	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+	
+  </head>
+  
+  <body>
+  <h1>JSON格式的user对象</h1>
+  <div id="user">
+  	<div id="id"></div>
+  	<div id="name"></div>
+  	<div id="password"></div>
+  </div>
+  
+
+  <h1>JSON格式的字符串数组</h1>
+  <div id="str1">
+  	<ul id="str1-ul">
+  	</ul>
+  </div>
+  
+
+  <h1>JSON格式的字符串数组</h1>
+  <select id="str2">
+  </select>
+  
+  <h1>JSON格式的对象数组</h1>
+  <table id="userArray" border="1px;">
+  	<tr>
+  		<td>id值:</td>
+  		<td>用户名:</td>
+  		<td>密码:</td>
+  	</tr>
+  </table>
+  
+  
+
+   <script type="text/javascript">
+   		var user={"id":1,name:"张三",password:"0000"};
+   		$("#id").html("用户ID是："+user.id);
+   		$("#name").html("用户名是："+user.name);
+   		$("#password").html("用户密码是："+user.password);
+   		//定义字符串数组
+   		var countryArray=["中国","美国","俄国"];
+   		for(var i=0;i<countryArray.length;i++){
+   			var li="<li>"+countryArray[i]+"</li>";
+   			$("#str1-ul").append(li);
+   		}
+   		
+   		
+   		var $countryArray=$(countryArray);
+   		$countryArray.each(function(){
+   			var li="<option>"+this+"</option>";
+   			$("#str2").append(li);
+   		});
+   		
+   		
+   		var userArray=[{id:"1",name:"admin",password:"111"},{id:"2",name:"admin2",password:"222"},{id:"3",name:"admin3",password:"333"}];
+   		var $userArray=$(userArray);
+   		$userArray.each(function(){
+   			$("#userArray").append("<tr>"+"<td>"+this.id+"</td><td>"+this.name+"</td><td>"+this.password+"</td></tr>");
+
+   		});
+   </script>
+  </body>
+</html>

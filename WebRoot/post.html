@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+    <title>注册</title>
+   	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+		function validate(){
+			var name=$("#name").val();
+			if(name==null || name==""){
+				$("#nameDiv").html("用户名不能为空");
+			}else{
+				//Ajax技术实现
+				//1获取XMLHTTPRequest对象
+				var req=createXMLHTTPRequest();
+				//2 准备url，数据
+				var url="userServlet";
+				req.open("POST",url);
+				//3设置回调函数
+				req.onreadystatechange=callback;
+				//4设置request封装参数
+				req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				//5发送请求
+				req.send("name="+name);
+				
+				
+				//回调函数
+				function callback(){
+					if(req.readyState==4 && req.status==200){
+						//4代表浏览器正确接收，200代表服务器正常接收
+						var data=req.responseText;
+						if(data=="true"){
+							$("#nameDiv").html("用户名已经存在");
+						}else{
+							$("#nameDiv").html("用户名可以使用");
+						}
+					}
+				}
+			}
+		}
+		
+		function createXMLHTTPRequest(){
+			//1如果当期浏览器版本为IE6以上浏览器或其他浏览器
+			if(window.XMLHttpRequest){
+				return new XMLHttpRequest();
+			}else{
+			//2 如果当期浏览器版本为IE6以下浏览器
+				return new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		}
+	
+	</script>
+  </head>
+  
+  <body>
+    <form action="" id="form1">
+    	<table>
+    		<tr>
+    			<td>用户名</td>
+    			<td><input type="text" name="name" id="name" onblur="validate();"/>	&nbsp;<font color="red">*</font>			
+    			</td>
+    			<td>
+    				<div id="nameDiv"></div>
+    			</td>
+    			
+    		</tr>
+    	</table>
+    </form>
+  </body>
+</html>
+
